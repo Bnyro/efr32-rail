@@ -207,6 +207,11 @@ impl Radio {
         unsafe { RAIL_SetTxPowerDbm(rail_handle, tx_power_dbm * 10) }.into_rail_result()
     }
 
+    /// Set the radio transmit power. Overwrites the value set when initializing the [Radio].
+    pub fn set_tx_power(&self, tx_power_dbm: i16) -> RailResult<()> {
+        Radio::configure_tx_power(self.rail_handle, tx_power_dbm)
+    }
+
     /// Start listening for incoming packets.
     pub fn enable_receive(&self) -> RailResult<()> {
         unsafe {
